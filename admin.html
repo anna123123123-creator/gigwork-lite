@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>运营后台 · 灵活用工零工平台（精简开源版）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand">零工<span class="accent">集市</span> 后台</div>
+      <div class="side-link active" data-view="dashboard">仪表盘</div>
+      <div class="side-link" data-view="gigs">任务管理</div>
+      <div class="side-link" data-view="settlements">结算管理</div>
+      <div class="side-link" id="btnResetData" style="margin-top:20px;color:var(--red)">重置示例数据</div>
+      <a href="index.html" class="side-link">← 返回前台</a>
+    </aside>
+
+    <main class="admin-main">
+      <section id="view-dashboard" class="admin-view active">
+        <div class="page-head"><h1>仪表盘</h1><p>任务与结算概览。</p></div>
+        <div class="stat-grid" id="statGrid"></div>
+
+        <h2 class="section-title">收入榜 Top 工人</h2>
+        <table>
+          <thead><tr><th>姓名</th><th>手机号</th><th>完成任务数</th><th>累计收入</th></tr></thead>
+          <tbody id="topWorkersBody"></tbody>
+        </table>
+
+        <h2 class="section-title">最新接单</h2>
+        <table>
+          <thead><tr><th>工人</th><th>任务</th><th>接单时间</th><th>状态</th></tr></thead>
+          <tbody id="recentClaimsBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-gigs" class="admin-view">
+        <div class="page-head"><h1>任务管理</h1><p>添加、编辑或删除零工任务。</p></div>
+        <div class="table-toolbar">
+          <span></span>
+          <button class="btn btn-primary btn-sm" id="btnAddGig">+ 发布任务</button>
+        </div>
+        <table>
+          <thead><tr><th>标题</th><th>分类</th><th>地点</th><th>报酬</th><th>预计工时</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody id="gigsBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-settlements" class="admin-view">
+        <div class="page-head"><h1>结算管理</h1><p>查看接单记录，标记任务完成以结算报酬。</p></div>
+        <div class="table-toolbar">
+          <div class="filter-row" id="settlementFilters">
+            <button class="filter-btn active" data-status="all">全部</button>
+            <button class="filter-btn" data-status="claimed">进行中</button>
+            <button class="filter-btn" data-status="completed">已完成</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>任务</th><th>工人</th><th>手机号</th><th>报酬</th><th>接单时间</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody id="settlementsBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="gigModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseGigModal">&times;</button>
+      <h2 id="gigModalTitle">发布任务</h2>
+      <div id="gigModalMsg"></div>
+      <form id="gigForm" novalidate>
+        <input type="hidden" id="gigIdInput">
+        <div class="field"><label>任务标题</label><input id="gigTitleInput" type="text" required></div>
+        <div class="field-row">
+          <div class="field">
+            <label>分类</label>
+            <select id="gigCategoryInput">
+              <option value="跑腿代办">跑腿代办</option>
+              <option value="家政临时工">家政临时工</option>
+              <option value="活动兼职">活动兼职</option>
+              <option value="同城搬运">同城搬运</option>
+            </select>
+          </div>
+          <div class="field"><label>地点</label><input id="gigLocationInput" type="text" required></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>报酬（元）</label><input id="gigRewardInput" type="number" min="0" required></div>
+          <div class="field"><label>预计工时（小时）</label><input id="gigHoursInput" type="number" min="0" step="0.5" required></div>
+        </div>
+        <div class="field"><label>任务说明</label><textarea id="gigDescInput" rows="3"></textarea></div>
+        <div class="field">
+          <label>状态</label>
+          <select id="gigStatusInput">
+            <option value="open">待接单</option>
+            <option value="claimed">进行中</option>
+            <option value="completed">已完成</option>
+            <option value="cancelled">已取消</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+
+<footer style="margin:40px auto 16px;max-width:1100px;padding:16px 20px 0;border-top:1px solid var(--line,rgba(147,160,184,.18));text-align:center;color:var(--muted,#93A0B8);font-size:13px">精简开源演示 &middot; 完整版：<a href="https://inzyxuashop.com/linghuoyonggong-yuanma.html" target="_blank" rel="noopener" style="color:var(--cyan,#19B8D4);text-decoration:none">灵活用工零工平台源码</a></footer>
+</body>
+</html>
